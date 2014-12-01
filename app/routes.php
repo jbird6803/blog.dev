@@ -18,16 +18,17 @@ Route::get('/', function()
 
 Route::get('say-hello', function()
 {
-	return "Hello Codeup!";
+	return View::make('say-hello')->with('viewName', 'Codeup');
 });
 
 Route::get('say-hello/{name}', function($name)
 {
-	if ($name == 'John') {
-		return Redirect::to('/');
-	} else {
-		return "Hello $name";
-	}
+	$data = [
+		'name' => $name,
+	];
+	return View::make('say-hello')->with('name', $name);
+	return View::make('say-hello')->with($data);
+	return View::make('say-hello', $data);
 });
 
 Route::get('resume', function()
@@ -39,3 +40,17 @@ Route::get('portfolio', function()
 {
 	return "This is my portfolio!";
 });
+
+Route::get('roll-dice/{guess}', function($guess)
+{
+	$roll = mt_rand(1, 6);
+	$data = [
+		'roll' => $roll,
+		'guess' => $guess
+	];
+	
+	return View::make('roll-dice', $data);
+});
+
+
+
