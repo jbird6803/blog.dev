@@ -15,3 +15,27 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('say-hello', function()
+{
+	return "Hello Codeup!";
+});
+
+Route::get('say-hello/{name}', function($name)
+{
+	if ($name == 'John') {
+		return Redirect::to('/');
+	} else {
+		return "Hello $name";
+	}
+});
+
+Route::get('resume', function()
+{
+	return "This is my resume!";
+});
+
+Route::get('portfolio', function()
+{
+	return "This is my portfolio!";
+});
