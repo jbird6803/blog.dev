@@ -11,46 +11,19 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'HomeController@showWelcome');
 
-Route::get('say-hello', function()
-{
-	return View::make('say-hello')->with('viewName', 'Codeup');
-});
+Route::get('say-hello/{name}', 'HomeController@sayHello');
+Route::get('roll-dice/{guess}', 'HomeController@rollDice');
 
-Route::get('say-hello/{name}', function($name)
-{
-	$data = [
-		'name' => $name,
-	];
-	return View::make('say-hello')->with('name', $name);
-	return View::make('say-hello')->with($data);
-	return View::make('say-hello', $data);
-});
+Route::get('resume', 'HomeController@showResume');
+Route::get('portfolio', 'HomeController@showPortfolio');
 
-Route::get('resume', function()
-{
-	return "This is my resume!";
-});
+Route::resource('posts', 'PostsController');
 
-Route::get('portfolio', function()
-{
-	return "This is my portfolio!";
-});
 
-Route::get('roll-dice/{guess}', function($guess)
-{
-	$roll = mt_rand(1, 6);
-	$data = [
-		'roll' => $roll,
-		'guess' => $guess
-	];
-	
-	return View::make('roll-dice', $data);
-});
+
+
 
 
 
