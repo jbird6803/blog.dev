@@ -2,9 +2,9 @@
 @section('content')
 	<h3> {{ $post->title }} </h3>
 	<p> {{ $post->body }} </p>
-	{{ HTML::link('http://blog.dev/posts', 'View All Posts', array('class' => 'btn btn-primary btn-xs')) }}
+	{{ HTML::link('/posts', 'View All Posts', array('class' => 'btn btn-primary btn-xs')) }}
 	@if (Auth::check())
-		{{ HTML::link('http://blog.dev/posts/' . $post->id . '/edit', 'Edit', array('class' => 'btn btn-success btn-xs')) }}
+		{{ HTML::link('/posts' . $post->id . '/edit', 'Edit', array('class' => 'btn btn-success btn-xs')) }}
 		{{ Form::open(array('action' => array('PostsController@destroy', $post->id), 'method' => 'DELETE', 'id'=>'delete-form')) }}
 	    {{ Form::submit('Delete', ['class'=>'btn btn-danger btn-xs']) }}
     @endif

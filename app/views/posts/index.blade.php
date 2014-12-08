@@ -16,14 +16,14 @@
 		
 			<p>	{{ $post->body }} </p>
 
-		<div>{{ HTML::link('http://blog.dev/posts/' . $post->id, 'View', array('class' => 'btn btn-primary btn-xs')) }}</div>
+		<div>{{ HTML::link('/posts' . $post->id, 'View', array('class' => 'btn btn-primary btn-xs')) }}</div>
 		@if (Auth::check())
-			<div>{{ HTML::link('http://blog.dev/posts/' . $post->id . '/edit', 'Edit', array('class' => 'btn btn-success btn-xs')) }}</div>
+			<div>{{ HTML::link('/posts' . $post->id . '/edit', 'Edit', array('class' => 'btn btn-success btn-xs')) }}</div>
 			<button class="btn btn-danger delete-btn btn-xs" data-post-id="{{{ $post->id }}}">Delete</button>
 		@endif
 	@endforeach
 	
-	<div>{{ $posts->links() }}</div>
+	<div>{{ $posts->appends('search', 'SOME VALUE')->links() }}</div>
 
 	{{ Form::open(array('method' => 'DELETE', 'id'=>'delete-form')) }}
     {{ Form::close() }}

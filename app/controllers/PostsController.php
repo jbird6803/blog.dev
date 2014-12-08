@@ -16,8 +16,9 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$perPage = 6;
-		$posts = Post::paginate($perPage);
+
+		$perPage = 5;
+		$posts = Post::with('user')->paginate($perPage);
 		return View::make('posts.index')->with('posts', $posts);
 	}
 
@@ -119,6 +120,7 @@ class PostsController extends \BaseController {
 		
 		$post->title = Input::get('title');
 		$post->body  = Input::get('body');
+		$post->user_id = Auth::id();
 		$post->save();
 
 		Session::flash('successMessage', "Post saved successfully");
@@ -136,6 +138,7 @@ class PostsController extends \BaseController {
 	    foreach($searchTerms as $term)
 	    {
 	        $query->where('body', 'LIKE', '%'. $term .'%');
+	        $query->orWhere('title', 'LIKE', '%'. $term . '%');
 	    }
 
 	    $results = $query->get();

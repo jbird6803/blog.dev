@@ -14,15 +14,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="http://blog.dev/posts">Blog</a></li>
+        <li><a href="/posts">Blog</a></li>
         @if (Auth::check())
-          <li><a href="http://blog.dev/posts/create">Create New Post</a></li>
+          <li><a href="/posts/create">Create New Post</a></li>
         @endif
       </ul>
 
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="search" action="show.php">
         <div class="form-group">
-          <input type="text" id="search" class="form-control" placeholder="Search By Title">
+          <input type="text" id="search" class="form-control" placeholder="Search By Title or Body">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -30,12 +30,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="http://blog.dev/resume">Resume</a></li>
-        <li><a href="http://blog.dev/portfolio">Portfolio</a></li>
+        <li><a href="/resume">Resume</a></li>
+        <li><a href="/portfolio">Portfolio</a></li>
         @if (Auth::guest())
-          <li><a href="http://blog.dev/login">Log In</a></li>
+          <li><a href="/login">Log In</a></li>
         @else
-          <li><a href="http://blog.dev/logout">Log Out</a></li>
+          <li><a href="/logout">Log Out</a></li>
         @endif
       </ul>
     
