@@ -19,6 +19,10 @@ Route::get('roll-dice/{guess}', 'HomeController@rollDice');
 Route::get('resume', 'HomeController@showResume');
 Route::get('portfolio', 'HomeController@showPortfolio');
 
+Route::get('login', 'HomeController@showLogin');
+Route::post('login', 'HomeController@doLogin');
+Route::get('logout', 'HomeController@doLogout');
+
 Route::resource('posts', 'PostsController');
 
 

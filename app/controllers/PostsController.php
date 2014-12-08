@@ -2,6 +2,13 @@
 
 class PostsController extends \BaseController {
 
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->beforeFilter('auth', array('except' => array('index', 'show')));
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +16,8 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::all();
+		$perPage = 6;
+		$posts = Post::paginate($perPage);
 		return View::make('posts.index')->with('posts', $posts);
 	}
 
@@ -31,13 +39,8 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		// dd(Input::all());
 		$post = new Post();
-		$post->title = Input::get('title');
-		$post->body  = Input::get('body');
-		$post->save();
-		return Redirect::action('PostsController@index');
-
+		return $this->savePost($post);
 	}
 
 
@@ -49,8 +52,11 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$post = Post::find($id);
-	
+		try {
+		$post = Post::findOrFail($id);
+	} catch(Exception $e) {
+		App::abort(404);
+	}
 		return View::make('posts.show')->with('post', $post);
 	}
 
@@ -63,7 +69,12 @@ class PostsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return "Show a form for editing " . $id;
+		try {
+		$post = Post::findOrFail($id);
+	} catch(Exception $e) {
+		App::abort(404);
+	}
+		return View::make('posts.edit')->with('post', $post);
 	}
 
 
@@ -75,7 +86,8 @@ class PostsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		return "Update the post for " . $id;
+		$post = Post::find($id);
+		return $this->savePost($post);
 	}
 
 
@@ -87,8 +99,47 @@ class PostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return "Delete " . $id;
+		$post = Post::findOrFail($id);
+		$post->delete();
+
+		Session::flash('successMessage', "Post Deleted");
+		
+		return Redirect::action('PostsController@index');
 	}
 
+	public function savePost(Post $post)
+	{
+		$validator = Validator::make(Input::all(), Post::$rules);
+		
+		if ($validator->fails()) {
+			Log::error('Failed to save post!', Input::all());
+			Session::flash('errorMessage', "Post not saved");
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		
+		$post->title = Input::get('title');
+		$post->body  = Input::get('body');
+		$post->save();
+
+		Session::flash('successMessage', "Post saved successfully");
+		return Redirect::action('PostsController@show', $post->id);
+	}
+
+	public function search() 
+	{
+	    $q = Input::get('search');
+
+	    $searchTerms = explode(' ', $q);
+
+	    $query = DB::table('posts');
+
+	    foreach($searchTerms as $term)
+	    {
+	        $query->where('body', 'LIKE', '%'. $term .'%');
+	    }
+
+	    $results = $query->get();
+	    return Redirect::action('PostsController@show', $results->id);
+	}
 
 }

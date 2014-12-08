@@ -17,7 +17,12 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		return Redirect::action('HomeController@sayHello', ['Jason']);
+		if (Auth::check()) {
+			$name = Auth::user()->email;
+		} else {
+		    $name = "Friend";
+		}
+		return Redirect::action('HomeController@sayHello', [$name]);
 	}
 
 	public function sayHello($name)
@@ -51,7 +56,26 @@ class HomeController extends BaseController {
 		return View::make('portfolio');
 	}
 
+	public function showLogin() 
+	{
+		return View::make('login');
+	}
 
+	public function doLogin()
+	{
+		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
+		    return Redirect::intended('/posts');
+		} else {
+		    Session::flash('errorMessage', 'Failed to authenticate');
+		    return Redirect::back();
+		}
+	}
+
+	public function doLogout()
+	{
+		Auth::logout();
+		return Redirect::action('HomeController@rollDice', mt_rand(1, 6));
+	}
 }
 
 
