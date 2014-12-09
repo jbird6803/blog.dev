@@ -23,7 +23,7 @@
 		@endif
 	@endforeach
 	
-	<div>{{ $posts->appends('search', 'SOME VALUE')->links() }}</div>
+	<div>{{ $posts->appends(['search' => $search])->links() }}</div>
 
 	{{ Form::open(array('method' => 'DELETE', 'id'=>'delete-form')) }}
     {{ Form::close() }}

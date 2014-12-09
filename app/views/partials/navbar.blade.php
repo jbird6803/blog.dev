@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="http://jasonbirdwell.net">Home</a>
+      <a class="navbar-brand" href="/index">Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,12 +20,12 @@
         @endif
       </ul>
 
-      <form class="navbar-form navbar-left" role="search" action="show.php">
-        <div class="form-group">
-          <input type="text" id="search" class="form-control" placeholder="Search By Title or Body">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+<div class="col-xs-6 col-sm-3" role="navigation">
+      {{ Form::open(['action' => ['PostsController@index'], 'class' => 'navbar-form navbar-left', 'method' => 'GET', 'name' => 'search']) }}
+      {{ Form::text('search', null, ['placeholder' => 'Search'])}}
+      {{ Form::submit('Search') }}
+      {{ Form::close() }}
+</div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

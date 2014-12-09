@@ -14,12 +14,35 @@ class PostsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+	// public function search() 
+	// {
+	//     $q = Input::get('search');
+	//     $searchTerms = explode(' ', $q);
+	//     $query = DB::table('posts');
+	//     foreach($searchTerms as $term)
+	//     {
+	//         $query->where('body', 'LIKE', '%'. $term .'%');
+	//         $query->orWhere('title', 'LIKE', '%'. $term . '%');
+	//     }
+	//     $results = $query->get();
+	//     return Redirect::action('PostsController@show', $results->id);
+	// }
 	public function index()
 	{
-
-		$perPage = 5;
-		$posts = Post::with('user')->paginate($perPage);
-		return View::make('posts.index')->with('posts', $posts);
+		$query = Post::with('user');
+		$perPage = 3;
+		$search = Input::get('search');
+		
+		if(Input::has('search')){
+			$searchTerms = explode(' ', $search);
+			foreach($searchTerms as $term)
+			{
+				$query->where('title', 'like', "%$term%")
+					  ->orWhere('body', 'like', "%$term%");
+			}
+		}
+		$posts = $query->orderBy('created_at', 'DESC')->paginate($perPage);
+		return View::make('posts.index')->with('posts', $posts)->with('search', $search);
 	}
 
 	/**
@@ -127,22 +150,5 @@ class PostsController extends \BaseController {
 		return Redirect::action('PostsController@show', $post->id);
 	}
 
-	public function search() 
-	{
-	    $q = Input::get('search');
-
-	    $searchTerms = explode(' ', $q);
-
-	    $query = DB::table('posts');
-
-	    foreach($searchTerms as $term)
-	    {
-	        $query->where('body', 'LIKE', '%'. $term .'%');
-	        $query->orWhere('title', 'LIKE', '%'. $term . '%');
-	    }
-
-	    $results = $query->get();
-	    return Redirect::action('PostsController@show', $results->id);
-	}
 
 }
