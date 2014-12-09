@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -27,18 +27,5 @@
       {{ Form::close() }}
 </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/resume">Resume</a></li>
-        <li><a href="/portfolio">Portfolio</a></li>
-        @if (Auth::guest())
-          <li><a href="/login">Log In</a></li>
-        @else
-          <li><a href="/logout">Log Out</a></li>
-        @endif
-      </ul>
-    
-    </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

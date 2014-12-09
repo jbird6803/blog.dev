@@ -29,20 +29,26 @@ class PostsController extends \BaseController {
 	// }
 	public function index()
 	{
+		if(Input::has('per-page')){
+			$perPage = Input::get('per-page');
+		} else {
+			$perPage = 3;
+		}
 		$query = Post::with('user');
-		$perPage = 3;
 		$search = Input::get('search');
 		
 		if(Input::has('search')){
 			$searchTerms = explode(' ', $search);
+			var_dump($searchTerms);
 			foreach($searchTerms as $term)
 			{
-				$query->where('title', 'like', "%$term%")
+				$query->orWhere('title', 'like', "%$term%")
 					  ->orWhere('body', 'like', "%$term%");
+				var_dump($term);
 			}
 		}
 		$posts = $query->orderBy('created_at', 'DESC')->paginate($perPage);
-		return View::make('posts.index')->with('posts', $posts)->with('search', $search);
+		return View::make('posts.index')->with('posts', $posts)->with('search', $search)->with('per-page', $perPage);
 	}
 
 	/**

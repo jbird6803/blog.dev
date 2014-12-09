@@ -1,7 +1,12 @@
 body {
-	padding: 150px;
+	padding-top: 100px;
+	padding-bottom: 200px; 
 }
 
 h1	{
 	text-align: center;
+}
+
+#perPage {
+
 }

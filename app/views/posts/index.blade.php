@@ -24,7 +24,13 @@
 	@endforeach
 	
 	<div>{{ $posts->appends(['search' => $search])->links() }}</div>
-
+<div class="perPage">
+	{{ Form::open(['action' => ['PostsController@index'], 'method' => 'GET','name' => 'per-page', 'id'=>'per-page']) }}
+	{{ Form::text('Posts Per Page', null) }}
+	{{ Form::submit('Submit') }}
+	{{ Form::close() }}
+</div>
+	
 	{{ Form::open(array('method' => 'DELETE', 'id'=>'delete-form')) }}
     {{ Form::close() }}
 
