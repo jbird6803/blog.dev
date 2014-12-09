@@ -27,5 +27,16 @@
       {{ Form::close() }}
 </div>
 
+  <li class="dropdown navbar-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Games</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/roll-dice">Roll Dice</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+
   </div><!-- /.container-fluid -->
 </nav>

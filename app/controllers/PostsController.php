@@ -39,12 +39,10 @@ class PostsController extends \BaseController {
 		
 		if(Input::has('search')){
 			$searchTerms = explode(' ', $search);
-			var_dump($searchTerms);
 			foreach($searchTerms as $term)
 			{
 				$query->orWhere('title', 'like', "%$term%")
 					  ->orWhere('body', 'like', "%$term%");
-				var_dump($term);
 			}
 		}
 		$posts = $query->orderBy('created_at', 'DESC')->paginate($perPage);
