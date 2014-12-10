@@ -4,9 +4,6 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">Home</a>
     </div>
@@ -29,7 +26,7 @@
 
   <li class="dropdown navbar-right">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Games</a>
-          <ul class="dropdown-menu" role="menu">
+          <ul class="navbar-nav dropdown-menu" role="menu">
             <li><a href="/roll-dice">Roll Dice</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>

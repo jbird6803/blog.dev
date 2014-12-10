@@ -5,9 +5,9 @@
 	        <li><a href="/resume">Resume</a></li>
 	        <li><a href="/portfolio">Portfolio</a></li>
 	        @if (Auth::guest())
-	          <li><a href="/login">Log In</a></li>
+	          <li><span class="glyphicon glyphicon-user"></span><a href="/login">Log In</a></li>
 	        @else
-	          <li><a href="/logout">Log Out</a></li>
+	          <li><span class="glyphicon glyphicon-search"></span><a href="/logout">Log Out</a></li>
 	        @endif
 	      </ul>
 	    
